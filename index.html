@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sangjun Yoon</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --text: #1e2126;
+      --muted: #666a72;
+      --soft-muted: #8a8e96;
+      --line: #dfe1e6;
+      --line-dark: #33363d;
+      --hover: #eceef2;
+      --photo-bg: #e9ebef;
+      --ajou-blue: #0072ce;
+      --ajou-blue-dark: #00589e;
+      --link: var(--ajou-blue);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background-color: var(--bg);
+    }
+    .top-nav {
+      width: 100%;
+      padding: 22px 60px 0;
+      background-color: var(--bg);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 0 14px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--line-dark);
+    }
+    .top-nav ul {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .top-nav li {
+      display: flex;
+      align-items: center;
+      margin: 0;
+    }
+    .top-nav li:not(:last-child)::after {
+      content: "|";
+      margin: 0 14px;
+      color: var(--soft-muted);
+      font-weight: 400;
+    }
+    .top-nav a {
+      display: inline-block;
+      padding: 6px 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-style: normal;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 4px;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+    .top-nav a.active {
+      color: var(--text);
+    }
+    .top-nav a:hover {
+      color: var(--text);
+      background-color: var(--hover);
+    }
+    .page-layout {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 60px 60px;
+    }
+    .left-panel { width: 260px; flex-shrink: 0; }
+    .photo-box {
+      width: 260px;
+      height: 300px;
+      margin: 0 auto;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      overflow: hidden;
+      background-color: var(--photo-bg);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .profile-box {
+      width: 260px;
+      min-height: 120px;
+      margin-top: 16px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background-color: var(--panel);
+      font-size: 15px;
+      line-height: 1.6;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      text-align: center;
+    }
+    .profile-box .name { font-weight: 700; margin: 0 0 4px; }
+    .profile-box .role { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; line-height: 1.5; }
+    .info-list {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      margin: 0;
+    }
+    .info-line { display: flex; align-items: center; gap: 8px; margin: 0; }
+    .info-icon {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      color: var(--ajou-blue);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .info-icon svg { width: 17px; height: 17px; display: block; }
+    .container { flex: 1; }
+    section { scroll-margin-top: 24px; }
+    h1 { font-size: 34px; font-weight: 700; margin: 0 0 12px; color: var(--text); }
+    h2 { font-size: 24px; font-weight: 700; margin: 40px 0 12px; color: var(--text); }
+    h3 { font-size: 19px; font-weight: 700; margin: 14px 0 8px; color: var(--text); }
+    .education-title { font-size: 24px; font-weight: 700; margin: 34px 0 12px; color: var(--text); }
+    hr { border: none; border-top: 1px solid var(--line); width: 100%; margin: 0 0 10px; }
+    ul, ol { padding-left: 22px; margin: 0; font-size: 17px; line-height: 1.8; }
+    li { margin-bottom: 4px; }
+    .education-list, .project-list { margin-top: 4px; font-size: 17px; line-height: 1.6; }
+    .education-row, .project-row {
+      display: grid;
+      grid-template-columns: 155px 1fr;
+      column-gap: 14px;
+      margin-bottom: 14px;
+    }
+    .education-period, .project-period { font-weight: 400; color: var(--muted); white-space: nowrap; }
+    .education-content, .project-content { color: var(--text); }
+    .project-title { display: block; font-weight: 400; }
+    .project-detail-list {
+      list-style: none;
+      margin: 4px 0 0;
+      padding-left: 0;
+      color: var(--muted);
+      font-size: inherit;
+      line-height: 1.6;
+    }
+    .project-detail-list li { position: relative; margin: 0; padding-left: 18px; }
+    .project-detail-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 1.1em;
+      line-height: inherit;
+      color: var(--muted);
+    }
+    .paper-list { line-height: 1.35; }
+    .paper-list li { margin-bottom: 16px; }
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-style: italic;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+    a:hover { color: var(--ajou-blue-dark); background-color: var(--hover); }
+    @media (max-width: 900px) {
+      .top-nav { padding: 22px 36px 0; }
+      .nav-inner { flex-wrap: wrap; row-gap: 10px; }
+      .page-layout { flex-direction: column; gap: 28px; padding: 32px 36px 56px; }
+      .left-panel { width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: stretch; gap: 16px; }
+      .photo-box { width: 115px; height: 115px; flex: 0 0 115px; }
+      .profile-box {
+        width: auto; flex: 1 1 auto; min-width: 0; min-height: 115px;
+        margin-top: 0; padding: 14px 16px; text-align: left;
+        display: flex; flex-direction: column; justify-content: center;
+      }
+      .profile-box a { overflow-wrap: break-word; word-break: keep-all; }
+      .container { width: 100%; }
+    }
+    @media (max-width: 560px) {
+      .top-nav { padding: 22px 24px 0; }
+      .top-nav li:not(:last-child)::after { margin: 0 10px; }
+      .top-nav a { font-size: 15px; padding: 5px 6px; }
+      .page-layout { padding: 28px 24px 48px; gap: 24px; }
+      .left-panel { width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: stretch; gap: 12px; }
+      .photo-box { width: 88px; height: 88px; flex: 0 0 88px; }
+      .profile-box {
+        width: auto; flex: 1 1 auto; min-width: 0; min-height: 88px;
+        margin-top: 0; padding: 10px 12px; font-size: 13px; line-height: 1.5;
+        display: flex; flex-direction: column; justify-content: center;
+      }
+      .info-line { gap: 6px; }
+      .info-icon { width: 15px; height: 15px; }
+      .info-icon svg { width: 15px; height: 15px; }
+      .education-row, .project-row { grid-template-columns: 1fr; row-gap: 2px; margin-bottom: 14px; }
+      .education-period, .project-period { white-space: normal; }
+      h1 { font-size: 30px; }
+      h2, .education-title { font-size: 22px; }
+      h3 { font-size: 18px; margin: 12px 0 8px; }
+      ul, ol, .education-list, .project-list { font-size: 16px; }
+    }
+    @media (max-width: 390px) {
+      .page-layout { padding: 26px 18px 44px; }
+      .left-panel { gap: 10px; }
+      .photo-box { width: 74px; height: 74px; flex: 0 0 74px; }
+      .profile-box { min-height: 74px; padding: 8px 10px; font-size: 12px; line-height: 1.45; }
+      .info-icon { width: 13px; height: 13px; }
+      .info-icon svg { width: 13px; height: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <div class="nav-inner">
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#projects">Projects</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="page-layout">
+    <aside class="left-panel">
+      <div class="photo-box">
+        <img src="images/profile.png" alt="Profile photo of Sangjun Yoon">
+      </div>
+      <div class="profile-box">
+        <p class="name">Sangjun Yoon</p>
+        <p class="role">Integrated M.S. &amp; Ph.D. Student<br>Ajou University</p>
+        <div class="info-list">
+          <p class="info-line">
+            <span class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21s-6-5.2-6-11a6 6 0 1 1 12 0c0 5.8-6 11-6 11z"></path>
+                <circle cx="12" cy="10" r="2.2"></circle>
+              </svg>
+            </span>
+            <span>Suwon, South Korea</span>
+          </p>
+          <p class="info-line">
+            <span class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21h18"></path>
+                <path d="M5 21V9l7-5 7 5v12"></path>
+                <path d="M9 21v-6h6v6"></path>
+              </svg>
+            </span>
+            <span>Ajou University</span>
+          </p>
+          <p class="info-line">
+            <span class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="5" width="16" height="11" rx="1.5"></rect>
+                <path d="M10 19h4"></path>
+                <path d="M8 19h8"></path>
+              </svg>
+            </span>
+            <span><a href="mailto:ajousj9808@ajou.ac.kr">Email</a></span>
+          </p>
+          <p class="info-line">
+            <span class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10L12 5 2 10l10 5 10-5z"></path>
+                <path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"></path>
+              </svg>
+            </span>
+            <span><a href="https://scholar.google.com/citations?user=sC1bgBwAAAAJ&hl=ko" target="_blank" rel="noopener noreferrer">Google Scholar</a></span>
+          </p>
+        </div>
+      </div>
+    </aside>
+    <main class="container">
+      <section id="home">
+        <h1>Sangjun Yoon</h1>
+        <hr>
+        <ul>
+          <li>Program: Integrated M.S. &amp; Ph.D.</li>
+          <li>Affiliation: Dept. of Industrial Engineering, Ajou Univ.</li>
+          <li>E-mail: <a href="mailto:ajousj9808@ajou.ac.kr">ajousj9808@ajou.ac.kr</a></li>
+          <li>Lab: <a href="https://ycshin.oopy.io/" target="_blank" rel="noopener noreferrer">SLSCM Lab</a> (Smart Logistics &amp; SCM Lab)</li>
+        </ul>
+        <h2 class="education-title">Education</h2>
+        <hr>
+        <div class="education-list">
+          <div class="education-row">
+            <div class="education-period">2017.03 - 2023.08</div>
+            <div class="education-content">B.S. in Industrial Engineering, Ajou Univ.</div>
+          </div>
+          <div class="education-row">
+            <div class="education-period">2023.09 - Current</div>
+            <div class="education-content">Integrated M.S. &amp; Ph.D. in Industrial Engineering, Ajou Univ.</div>
+          </div>
+        </div>
+      </section>
+      <section id="publications">
+        <h2>Publications</h2>
+        <hr>
+        <h3>International Journal - SCI(E) &amp; SSCI</h3>
+        <ol class="paper-list">
+          <li>
+            Next-day demand based last-mile delivery route optimization with collection of reusable bags<br>
+            <strong><u>S. Yoon</u></strong>, G. Kim, and Y. Shin*. (2025)
+            <a href="https://www.sciencedirect.com/journal/transportation-research-part-e-logistics-and-transportation-review" target="_blank" rel="noopener noreferrer">
+              Transportation Research Part E: Logistics and Transportation Review
+            </a>, 203, 104387.
+          </li>
+          <li>
+            Last-Mile Delivery Route Optimization Through Collaborative Underground Logistics System<br>
+            D. Kim, <strong><u>S. Yoon</u></strong>, and Y. Shin*. (2026)
+            Computers &amp; Industrial Engineering, 111978.
+          </li>
+          <li>
+            Closed-loop supply chain model with third-party logistics–based return management system<br>
+            <strong><u>S. Yoon</u></strong>, Y. Lee*, and Y. Shin*. (2026)
+            <a href="https://www.sciencedirect.com/journal/transportation-research-part-e-logistics-and-transportation-review" target="_blank" rel="noopener noreferrer">
+              Transportation Research Part E: Logistics and Transportation Review
+            </a>, 215, 105077.
+          </li>
+          <li>
+            E-commerce supply chain planning with Space-as-a-Service: Two-stage stochastic programming approach<br>
+            S. Na, <strong><u>S. Yoon</u></strong>, J. Lee*, and Y. Shin*. (2026)
+            <a href="https://www.sciencedirect.com/journal/socio-economic-planning-sciences" target="_blank" rel="noopener noreferrer">
+              Socio-Economic Planning Sciences
+            </a>, 102537.
+          </li>
+        </ol>
+        <h3>Working Papers &amp; Submitted Papers</h3>
+        <ul class="paper-list">
+          <li>Last-Mile Delivery Route Optimization through the Integration of Public Transportation and Drones</li>
+        </ul>
+        <h3>Patents</h3>
+        <ul class="paper-list">
+          <li>레이저 공정 분석 장치 및 방법 (2024), 출원: 10-2024-0112424 — 신영철, 윤상준, 최재경</li>
+          <li>SPOT 용접점의 최적 경로 생성 방법 및 시스템 (2024), 출원: 10-2024-0048966 — 신영철, 박상철, 윤상준, 조성호, 박재형</li>
+        </ul>
+      </section>
+      <section id="projects">
+        <h2>Projects</h2>
+        <hr>
+        <h3>Ongoing Projects</h3>
+        <div class="project-list">
+          <div class="project-row">
+            <div class="project-period">2026.03 - 2026.07</div>
+            <div class="project-content">
+              <span class="project-title">기아 Data Inspiring Camp 2기</span>
+              <ul class="project-detail-list">
+                <li>기아</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <h3>Completed Projects</h3>
+        <div class="project-list">
+          <div class="project-row">
+            <div class="project-period">2025.08 - 2025.12</div>
+            <div class="project-content">
+              <span class="project-title">조립공정 기초 품질 데이터 관리 효율화 및 오류 발생 최소화 시스템 구현</span>
+              <ul class="project-detail-list">
+                <li>기아 - Data Inspiring Camp 후속 과제</li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-row">
+            <div class="project-period">2025.01 - 2025.05</div>
+            <div class="project-content">
+              <span class="project-title">기아 Data Inspiring Camp 1기</span>
+              <ul class="project-detail-list">
+                <li>기아</li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-row">
+            <div class="project-period">2024.04 - 2028.03</div>
+            <div class="project-content">
+              <span class="project-title">반도체 산업의 스마트 물류 및 공급망 시스템 운영을 위한 불확실성 데이터 하에서의 분포강건최적화 연구</span>
+              <ul class="project-detail-list">
+                <li>한국연구재단: 우수신진연구</li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-row">
+            <div class="project-period">2023.04 - 2024.12</div>
+            <div class="project-content">
+              <span class="project-title">디지털 트윈 기술 활용 AI 강화 학습 차체 부품 조립 공법 자동화 S/W 개발</span>
+              <ul class="project-detail-list">
+                <li>산업통상자원부, 주관기관: 엠에스오토텍</li>
+              </ul>
+            </div>
+          </div>
+          <div class="project-row">
+            <div class="project-period">2023.05 - 2024.04</div>
+            <div class="project-content">
+              <span class="project-title">실시간 파형 데이터의 classification 및 최적 조건 도출</span>
+              <ul class="project-detail-list">
+                <li>삼성SDI</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
