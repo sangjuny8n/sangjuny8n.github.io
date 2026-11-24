@@ -28,10 +28,39 @@
       background-color: var(--bg);
     }
     .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
       width: 100%;
       padding: 22px 60px 0;
       background-color: var(--bg);
+      transition: box-shadow 0.2s ease;
     }
+    .top-nav.scrolled { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06); }
+    .back-to-top {
+      position: fixed;
+      right: 28px;
+      bottom: 28px;
+      z-index: 100;
+      width: 46px;
+      height: 46px;
+      border: none;
+      border-radius: 50%;
+      background-color: var(--ajou-blue);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s, background-color 0.2s ease;
+    }
+    .back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    .back-to-top:hover { background-color: var(--ajou-blue-dark); }
+    .back-to-top svg { width: 22px; height: 22px; display: block; }
     .nav-inner {
       display: flex;
       align-items: center;
@@ -127,7 +156,7 @@
     }
     .info-icon svg { width: 17px; height: 17px; display: block; }
     .container { flex: 1; }
-    section { scroll-margin-top: 24px; }
+    section { scroll-margin-top: 90px; }
     h1 { font-size: 34px; font-weight: 700; margin: 0 0 12px; color: var(--text); }
     h2 { font-size: 24px; font-weight: 700; margin: 40px 0 12px; color: var(--text); }
     h3 { font-size: 19px; font-weight: 700; margin: 14px 0 8px; color: var(--text); }
@@ -188,8 +217,10 @@
       .container { width: 100%; }
     }
     @media (max-width: 560px) {
-      .top-nav { padding: 22px 24px 0; }
-      .top-nav a { font-size: 15px; padding: 5px 6px; }
+      .top-nav { padding: 14px 24px 0; }
+      .nav-inner { padding-bottom: 10px; }
+      .top-nav ul { flex-wrap: wrap; gap: 4px 6px; }
+      .top-nav a { font-size: 14px; padding: 5px 5px; }
       .page-layout { padding: 28px 24px 48px; gap: 24px; }
       .left-panel { width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: stretch; gap: 12px; }
       .photo-box { width: 88px; height: 88px; flex: 0 0 88px; }
@@ -207,8 +238,12 @@
       h2, .education-title { font-size: 22px; }
       h3 { font-size: 18px; margin: 12px 0 8px; }
       ul, ol, .education-list, .project-list { font-size: 16px; }
+      .back-to-top { right: 18px; bottom: 18px; width: 42px; height: 42px; }
     }
     @media (max-width: 390px) {
+      .top-nav { padding: 14px 18px 0; }
+      .top-nav ul { gap: 4px 2px; }
+      .top-nav a { padding: 5px 4px; }
       .page-layout { padding: 26px 18px 44px; }
       .left-panel { gap: 10px; }
       .photo-box { width: 74px; height: 74px; flex: 0 0 74px; }
@@ -224,6 +259,7 @@
       <ul>
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#publications">Publications</a></li>
+        <li><a href="#conferences">Conferences</a></li>
         <li><a href="#projects">Projects</a></li>
       </ul>
     </div>
@@ -352,6 +388,61 @@
           </li>
         </ul>
       </section>
+      <section id="conferences">
+        <h2>Conferences</h2>
+        <hr>
+        <h3>International Conference</h3>
+        <ol class="paper-list" reversed>
+          <li>
+            Metalworking Fluid Replenishment under Concentration Uncertainty: A Two-Stage Stochastic Programming Model and Decomposition Approach<br>
+            <strong><u>S. Yoon</u></strong>, I. Sung, and Y. Shin<br>
+            The 26th Asia-Pacific Industrial Engineering and Management Systems Conference (2026. 11, Busan, Korea), APIEMS
+          </li>
+          <li>
+            Closed-Loop Supply Chain Model with Third-Party Logistics–Based Return Management System<br>
+            <strong><u>S. Yoon</u></strong>, Y. Lee, and Y. Shin<br>
+            The 24th Conference of the International Federation of Operational Research Societies (2026. 7, Vienna, Austria), IFORS
+          </li>
+          <li>
+            Last-Mile Delivery Route Optimization Considering Collection of Reusable Bags<br>
+            <strong><u>S. Yoon</u></strong>, G. Kim, and Y. Shin<br>
+            12th International Conference on Logistics and Maritime Systems (2024. 8, Hamburg, Germany), LOGMS
+          </li>
+        </ol>
+        <h3>Domestic Conference</h3>
+        <ol class="paper-list" reversed>
+          <li>
+            검사자 편차 기반 품질 평가 최적화를 위한 작업자 분석 프레임워크<br>
+            <strong>윤상준</strong>, 최재경, 신영철<br>
+            대한산업공학회 추계학술대회, 2026.12, 부산항국제여객터미널(BPEX)
+          </li>
+          <li>
+            제3자 물류 기반 반품 관리 시스템을 통합한 폐쇄형 공급망 모형<br>
+            <strong>윤상준</strong>, 이연수, 신영철<br>
+            한국SCM학회 춘계학술대회, 2026.06, 대한상공회의소
+          </li>
+          <li>
+            검사자 편차 기반 품질 평가 최적화를 위한 작업자 분석 프레임워크<br>
+            <strong>윤상준</strong>, 정호준, 채수광, 신영철<br>
+            한국전자거래학회 추계학술대회, 2025.11, 차세대융합기술연구원
+          </li>
+          <li>
+            검사자 편차 기반 품질 평가 최적화를 위한 작업자 분석 프레임워크<br>
+            <strong>윤상준</strong>, 최재경, 신영철<br>
+            대한산업공학회 춘계학술대회, 2025.06, 제주 해비치호텔
+          </li>
+          <li>
+            강화 학습을 이용한 로봇 팔 용접 순서 결정 지원 시스템 개발<br>
+            <strong>윤상준</strong>, 박재형, 이현우, 신영철<br>
+            한국SCM학회 춘계학술대회, 2024.06, 대한상공회의소
+          </li>
+          <li>
+            효율적 다회용 택배 상자 수거를 위한 라스트 마일 배송 경로 최적화<br>
+            <strong>윤상준</strong>, 김광, 신영철<br>
+            대한산업공학회 춘계학술대회, 2024.05, 여수엑스포컨벤션센터
+          </li>
+        </ol>
+      </section>
       <section id="projects">
         <h2>Projects</h2>
         <hr>
@@ -431,6 +522,10 @@
         <div class="education-list">
           <div class="education-row">
             <div class="education-period">2026</div>
+            <div class="education-content">한국공급망경영학회 추계학술대회 우수논문상</div>
+          </div>
+          <div class="education-row">
+            <div class="education-period">2026</div>
             <div class="education-content">한국공급망경영학회 춘계학술대회 우수논문상</div>
           </div>
         </div>
@@ -439,6 +534,10 @@
         <h2>Lectures</h2>
         <hr>
         <div class="education-list">
+          <div class="education-row">
+            <div class="education-period">2026.11</div>
+            <div class="education-content">SK이노베이션 E&amp;S - 나래에너지서비스 — AI와 Python을 활용한 업무자동화</div>
+          </div>
           <div class="education-row">
             <div class="education-period">2026.07</div>
             <div class="education-content">SK이노베이션 E&amp;S - 나래에너지서비스 — AI와 Python을 활용한 업무자동화</div>
@@ -459,5 +558,47 @@
       </section>
     </main>
   </div>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="Back to top" title="맨 위로">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5"></path>
+      <path d="M5 12l7-7 7 7"></path>
+    </svg>
+  </button>
+  <script>
+    (function () {
+      var nav = document.querySelector('.top-nav');
+      var topBtn = document.getElementById('backToTop');
+      var links = Array.prototype.slice.call(document.querySelectorAll('.top-nav a[href^="#"]'));
+      var sections = links
+        .map(function (a) { return document.querySelector(a.getAttribute('href')); })
+        .filter(Boolean);
+
+      function onScroll() {
+        var y = window.scrollY || window.pageYOffset;
+        nav.classList.toggle('scrolled', y > 4);
+        topBtn.classList.toggle('show', y > 300);
+
+        // Highlight the menu item for the section currently in view
+        var offset = nav.offsetHeight + 40;
+        var current = sections[0];
+        sections.forEach(function (s) {
+          if (s.getBoundingClientRect().top - offset <= 0) current = s;
+        });
+        if (window.innerHeight + y >= document.documentElement.scrollHeight - 2) {
+          current = sections[sections.length - 1];
+        }
+        links.forEach(function (a) {
+          a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id);
+        });
+      }
+
+      topBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+      onScroll();
+    })();
+  </script>
 </body>
 </html>
